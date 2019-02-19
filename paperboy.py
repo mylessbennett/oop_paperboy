@@ -7,7 +7,7 @@ class Paperboy:
         self.earnings = earnings
 
     def __str__(self):
-        return "I'm {}, I've delivered {} papers and earned ${:.2f} so far!".format(name, experience, earnings)
+        return "I'm {}, I've delivered {} papers and earned ${:.2f} so far!".format(self.name, self.experience, self.earnings)
 
     def quota(self):
         if self.experience <= 0:
@@ -18,34 +18,31 @@ class Paperboy:
 
     def deliver(self, start_address, end_address):
         number_houses = end_address - start_address
+        current_total = 0
         if number_houses <= self.quota():
-            self.earnings = number_houses * 0.25
+            current_total = number_houses * 0.25
         elif number_houses > self.quota():
-            self.earnings = (self.quota() * 0.25) + ((number_houses - self.quota()) * 0.5)
+            current_total = (self.quota() * 0.25) + ((number_houses - self.quota()) * 0.5)
         elif number_houses < quota:
-            self.earnings -= 2
+            current_total -= 2
 
         self.experience += number_houses
+        self.earnings += current_total
 
 
     def report(self):
         return "I'm {}, I've delivered {} papers and earned ${:.2f} so far!".format(self.name, self.experience, self.earnings)
 
 
-
-
-
-
-
 tommy = Paperboy("tommy", 50, 0)
 #-------------------------------------------------------------------------------------------------------------
+# testing quota method
 quota = tommy.quota()
 print(quota)
 #-------------------------------------------------------------------------------------------------------------
+# testing deliver method and report methods
 tommy.deliver(1,76)
-#-------------------------------------------------------------------------------------------------------------
 print(tommy.report())
 #-------------------------------------------------------------------------------------------------------------
 tommy.deliver(1,25)
-#-------------------------------------------------------------------------------------------------------------
 print(tommy.report())
